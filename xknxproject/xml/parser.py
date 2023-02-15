@@ -92,6 +92,7 @@ class XMLParser:
             )
 
         group_address_dict: dict[str, GroupAddress] = {}
+
         for group_address in self.group_addresses:
             _com_object_ids = [
                 com_object_id
@@ -99,6 +100,8 @@ class XMLParser:
                 if group_address.identifier in com_object["group_address_links"]
             ]
             group_address_dict[group_address.identifier] = GroupAddress(
+                main_name=group_address.main_name,
+                middle_name=group_address.middle_name,
                 name=group_address.name,
                 identifier=group_address.identifier,
                 raw_address=group_address.raw_address,

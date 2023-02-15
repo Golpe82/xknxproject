@@ -56,6 +56,8 @@ class Area(TypedDict):
 class GroupAddress(TypedDict):
     """GroupAddress typed dict."""
 
+    main_name: str
+    middle_name: str
     name: str
     identifier: str
     raw_address: int

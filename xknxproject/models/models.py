@@ -13,16 +13,26 @@ class XMLGroupAddress:
 
     def __init__(
         self,
-        name: str,
-        identifier: str,
-        address: str,
-        description: str,
-        dpt_type: str | None,
+        main_name: str = "",
+        middle_name: str = "",
+        name: str = "",
+        identifier: str = "",
+        address: str = "",
+        description: str = "",
+        dpt_type: str = "",
     ):
         """Initialize a group address."""
+        self.main_name = main_name
+        self.middle_name = middle_name
         self.name = name
-        self.identifier = identifier.split("_")[1]
-        self.raw_address = int(address)
+        if identifier:
+            self.identifier = identifier.split("_")[1]
+        else:
+            self.identifier = identifier
+        if address:
+            self.raw_address = int(address)
+        else:
+            self.raw_address = -1
         self.description = description
         self.dpt_type = (
             None if dpt_type is None else parse_dpt_types(dpt_type.split(" "))
@@ -39,7 +49,7 @@ class XMLGroupAddress:
 
     def __repr__(self) -> str:
         """Return string representation."""
-        return f"{self.address} ({self.name}) - [DPT: {self.dpt_type}, ID: {self.identifier}]"
+        return f"{self.address} ({self.main_name}) ({self.middle_name}) ({self.name}) - [DPT: {self.dpt_type}, ID: {self.identifier}]"
 
 
 @dataclass
