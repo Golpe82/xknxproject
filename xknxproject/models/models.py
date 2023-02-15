@@ -13,26 +13,20 @@ class XMLGroupAddress:
 
     def __init__(
         self,
-        main_name: str = "",
-        middle_name: str = "",
-        name: str = "",
-        identifier: str = "",
-        address: str = "",
-        description: str = "",
-        dpt_type: str = "",
+        main_name: str,
+        middle_name: str,
+        name: str,
+        identifier: str,
+        address: str,
+        description: str,
+        dpt_type: str | None,
     ):
         """Initialize a group address."""
         self.main_name = main_name
         self.middle_name = middle_name
         self.name = name
-        if identifier:
-            self.identifier = identifier.split("_")[1]
-        else:
-            self.identifier = identifier
-        if address:
-            self.raw_address = int(address)
-        else:
-            self.raw_address = -1
+        self.identifier = identifier.split("_")[1]
+        self.raw_address = int(address)
         self.description = description
         self.dpt_type = (
             None if dpt_type is None else parse_dpt_types(dpt_type.split(" "))
