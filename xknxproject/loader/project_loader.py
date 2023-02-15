@@ -33,13 +33,11 @@ class ProjectLoader:
 
         with knx_proj_contents.open_project_0() as project_file:
             tree = ElementTree.parse(project_file)
-            for ga_element in tree.findall(
-                # `//` to ignore <GroupRange> tags to support different GA level formats
-                "{*}Project/{*}Installations/{*}Installation/{*}GroupAddresses//{*}GroupAddress"
+            for group_ranges_element in tree.findall(
+                "{*}Project/{*}Installations/{*}Installation/{*}GroupAddresses/{*}GroupRanges"
             ):
-                group_address_list.append(
-                    _GroupAddressLoader.load(group_address_element=ga_element),
-                )
+                _GroupAddressLoader.load(group_address_list, group_ranges=group_ranges_element)
+                
             for topology_element in tree.findall(
                 "{*}Project/{*}Installations/{*}Installation/{*}Topology"
             ):
@@ -63,16 +61,24 @@ class _GroupAddressLoader:
     """Load GroupAddress info from KNX XML."""
 
     @staticmethod
-    def load(group_address_element: ElementTree.Element) -> XMLGroupAddress:
-        """Load GroupAddress mappings."""
+    def load(groupaddress_list: list, group_ranges: ElementTree.Element) -> XMLGroupAddress:
+        """Appends GroupAddress mappings to groupaddress list."""
+        for main_group_range in group_ranges:
+            main_address_name = main_group_range.get("Name")
+            for middle_group_range in main_group_range:
+                middle_address_name = middle_group_range.get("Name")
+                for address in middle_group_range:
+                    xml_groupaddress = XMLGroupAddress(
+                        main_name = main_address_name,
+                        middle_name = middle_address_name,
+                        name = address.get("Name", ""),
+                        identifier = address.get("Id", ""),
+                        address = address.get("Address", ""),
+                        dpt_type = address.get("DatapointType"),
+                        description = address.get("Description", "")
+                    )
 
-        return XMLGroupAddress(
-            name=group_address_element.get("Name", ""),
-            identifier=group_address_element.get("Id", ""),
-            address=group_address_element.get("Address", ""),
-            dpt_type=group_address_element.get("DatapointType"),
-            description=group_address_element.get("Description", ""),
-        )
+                    groupaddress_list.append(xml_groupaddress)
 
 
 class _TopologyLoader:
