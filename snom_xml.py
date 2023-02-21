@@ -323,7 +323,7 @@ def get_sub_groupaddress(groupaddress_data) -> dict[str, str]:
     return  {items[2]: main_name}
 
 if __name__ == "__main__":
-    knxproj: XKNXProj = XKNXProj("/home/golpe/knx/ISE_2023_20230213.knxproj")
+    knxproj: XKNXProj = XKNXProj("./example.knxproj")
     project: KNXProject = knxproj.parse()
 
     groupaddresses_data = project.get("group_addresses").values()

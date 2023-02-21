@@ -25,9 +25,9 @@ Caution: Loading a middle-sized project with this tool takes about 1.5 seconds. 
 
 ## Installation
 
-- Clone the project
-- Create a virtual environment if desired
-- Install the requirements
+1. Clone the project
+2. Create a virtual environment if desired
+3. Install the requirements
 
 ## Usage
 
