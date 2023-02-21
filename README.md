@@ -1,6 +1,7 @@
 # (X)KNX Project fork ([original](https://github.com/XKNX/xknxproject))
 
-The purpose of this fork is to obtain the groupaddresses range names (main and middle) and not only the groupaddress name.
+The purpose of this fork is to create a [Snom xml](http://docs.snom.io/xml_minibrowser/main_tags/SnomIPPhoneMenu/) for controlling a KNX installation with [Snom IP phones](https://www.snom.com/en/).  
+For this, the [original xknxproject](https://github.com/XKNX/xknxproject)  was changed to obtain the groupaddresses range names (main and middle) and not only the groupaddress name.
 
 [![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=f8b424)](https://github.com/pre-commit/pre-commit)
 [![Discord](https://img.shields.io/discord/338619021215924227?color=7289da&label=Discord&logo=discord&logoColor=7289da)](https://discord.gg/bkZe9m4zvw)
